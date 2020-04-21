@@ -41,9 +41,17 @@ namespace SuperheroDatabase.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Superhero superhero)
         {
-            _context.Add(superhero);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                _context.Add(superhero);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+
         }
 
         // GET: Superhero/Edit/5
@@ -83,9 +91,17 @@ namespace SuperheroDatabase.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Superhero superhero)
         {
-            _context.Remove(superhero);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                _context.Remove(superhero);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+
         }
     }
 }
