@@ -26,7 +26,8 @@ namespace SuperheroDatabase.Controllers
         // GET: Superhero/Details/5
         public IActionResult Details(int id)
         {
-            return View();
+            var superhero = _context.Superheroes.Where(s => s.Id == id).SingleOrDefault();
+            return View(superhero);
         }
 
         // GET: Superhero/Create
@@ -48,19 +49,21 @@ namespace SuperheroDatabase.Controllers
         // GET: Superhero/Edit/5
         public IActionResult Edit(int id)
         {
-            return View();
+            var superhero = _context.Superheroes.Where(s => s.Id == id).SingleOrDefault();
+            return View(superhero);
         }
 
         // POST: Superhero/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(Superhero superhero)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                _context.Superheroes.Update(superhero);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -69,9 +72,10 @@ namespace SuperheroDatabase.Controllers
         }
 
         // GET: Superhero/Delete/5
-        public IActionResult Delete()
+        public IActionResult Delete(int id)
         {
-            return View();
+            var superhero = _context.Superheroes.Where(s => s.Id == id).SingleOrDefault();
+            return View(superhero);
         }
 
         // POST: Superhero/Delete/5
